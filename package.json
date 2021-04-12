@@ -1,0 +1,9 @@
+{
+  "name": "socket-stuff",
+  "version": "0.0.1",
+  "description": "my first socket.io app",
+  "dependencies": {
+    "socket.io": "^3.1.2",
+    "socket.io-client": "^3.1.1"
+  }
+}
