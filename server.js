@@ -188,4 +188,5 @@ function updateBoardModel(row, col, roomName)
 	board[roomName][row][col] = turn[roomName];
 }
 
-server.listen(process.env.PORT || 3000);
+//server.listen(process.env.PORT || 3000);
+server.listen(8080);
