@@ -13,7 +13,8 @@ const server = require('http').createServer();
 
 const io = require('socket.io')(server, {
   cors: {
-    origin: 'http://127.0.0.1:59074', //point to github
+  	origin: 'https://ebkeefe5.github.io',
+    //origin: 'http://127.0.0.1:59074', //point to github
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true
