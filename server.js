@@ -9,7 +9,8 @@ const{ BOARD_DIMENSION } = require('./constants');
 const { player1WinningPath, player2WinningPath } = require("./gameOverUtility");
 const { makeid } = require("./randId");
 
-const server = require('http').createServer();
+//const server = require('http').createServer();
+const server = require('https').createServer();
 
 const io = require('socket.io')(server, {
   cors: {
