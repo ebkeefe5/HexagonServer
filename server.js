@@ -1,3 +1,18 @@
+const https = require('https');
+const fs = require('fs');
+var express = require('express');
+var app = module.exports = express();
+
+// const options = {
+//   key: fs.readFileSync('key.pem'),
+//   cert: fs.readFileSync('cert.pem')
+// };
+
+// https.createServer(options, function (req, res) {
+//   res.writeHead(200);
+//   res.end("hello world\n");
+// }).listen(8000);
+
 /**
  ** this is the server for the hexagon game
  ** this is going to be hosted through GCP at http://35.225.166.66/
@@ -10,17 +25,27 @@ const { player1WinningPath, player2WinningPath } = require("./gameOverUtility");
 const { makeid } = require("./randId");
 
 //const server = require('http').createServer();
-const server = require('http').createServer();
+//const server = require('http').createServer();
+
+const server = https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('certificate.crt'),
+    ca: fs.readFileSync('intermediate.crt'),
+    requestCert: true,
+    rejectUnauthorized: false
+},app);
+
+server.listen(3000);
 
 const io = require('socket.io')(server, {
   cors: {
-  	origin: 'http://arkasaur.com',
-    //origin: 'http://127.0.0.1:59074', //point to github
+  	//origin: 'http://arkasaur.com',
+    origin: 'https://127.0.0.1:51925', //point to github
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true
   }
-});         
+});       
 
 const board = {};
 const turn = {};
@@ -190,4 +215,4 @@ function updateBoardModel(row, col, roomName)
 }
 
 //server.listen(process.env.PORT || 3000);
-server.listen(8080);
+//server.listen(8080);
