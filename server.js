@@ -45,6 +45,7 @@ io.on('connection', client => {
   client.on('newGame', handleNewGame);
   client.on('hexagonClicked', handleHexagonClicked);
   client.on('joinGame', handleJoinGame);
+  client.on('restartGame', handleRestart);
 
   function handleJoinGame(roomName) {
       const users = io.sockets.adapter.rooms.get(roomName);
@@ -87,6 +88,15 @@ io.on('connection', client => {
     client.emit('update', {data:{gameBoard:board[roomName],turn: turn[roomName]}});
   }
 
+  function handleRestart()
+  {
+    board[roomName] = initBoard();
+    turn[roomName] = 1;
+    gameOver[roomName] = false;
+    firstTurn[roomName] = 1;
+    io.sockets.in(roomName).emit('update', {data:{gameBoard:board[roomName], turn:turn[roomName]}});
+  }
+
   function handleHexagonClicked(hexagon)
   {
     const roomName = clientRooms[client.id];
@@ -99,7 +109,6 @@ io.on('connection', client => {
       client.emit("disconnected")
       return;
     }
-
 
     if (gameOver[roomName] || board[roomName][hexagon.row][hexagon.col] != 0 || client.number != turn[roomName])
       return;
@@ -173,14 +182,12 @@ function updateFirstTurnModel(roomName)
 function updateTurnModel(roomName)
 {
   if (turn[roomName] == 1)
-          turn[roomName] = 2;
+    turn[roomName] = 2;
   else if (turn[roomName] == 2)
-          turn[roomName] = 1;
+    turn[roomName] = 1;
 }
 
 function updateBoardModel(row, col, roomName)
 {
   board[roomName][row][col] = turn[roomName];
 }
-
-//server.listen(process.env.PORT || 3000);
