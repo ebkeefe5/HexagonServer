@@ -90,6 +90,7 @@ io.on('connection', client => {
 
   function handleRestart()
   {
+    const roomName = clientRooms[client.id];
     board[roomName] = initBoard();
     turn[roomName] = 1;
     gameOver[roomName] = false;
