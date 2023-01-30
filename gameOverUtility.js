@@ -1,5 +1,7 @@
 /*
 ** this is a utility class for checking if the game is over 
+** this should be improved to be either a DFS or BFS
+** BFS is preferable
 */
 
 

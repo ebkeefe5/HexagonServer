@@ -1,6 +1,6 @@
 /**
- ** this is the server for the hexagon game
- ** this is going to be hosted through GCP at http://35.225.166.66/
+ ** server for two player hexagon game
+ ** must be hosted at a server with an ssl certificate installed running over https
  **
 **/
 
@@ -15,9 +15,9 @@ const { player1WinningPath, player2WinningPath } = require("./gameOverUtility");
 const { makeid } = require("./randId");
 
 const server = https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('certificate.crt'),
-  ca: fs.readFileSync('intermediate.crt'),
+  key: fs.readFileSync('server.key'), //must be installed at correct location in server
+  cert: fs.readFileSync('certificate.crt'), //must be installed at correct location in server
+  ca: fs.readFileSync('intermediate.crt'), //must be installed at correct location in server
   requestCert: true,
   rejectUnauthorized: false
 },app);
