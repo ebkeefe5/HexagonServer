@@ -4,32 +4,35 @@
  **
 **/
 
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 var express = require('express');
 var app = module.exports = express();
+const port = 3000;
 
 const initBoard = require("./game");
 const{ BOARD_DIMENSION } = require('./constants');
 const { player1WinningPath, player2WinningPath } = require("./gameOverUtility");
 const { makeid } = require("./randId");
 
-const server = https.createServer({
-  key: fs.readFileSync('server.key'), //must be installed at correct location in server
-  cert: fs.readFileSync('certificate.crt'), //must be installed at correct location in server
-  ca: fs.readFileSync('intermediate.crt'), //must be installed at correct location in server
-  requestCert: true,
-  rejectUnauthorized: false
+const server = http.createServer({
+  // key: fs.readFileSync('server.key'), //must be installed at correct location in server
+  // cert: fs.readFileSync('certificate.crt'), //must be installed at correct location in server
+  // ca: fs.readFileSync('intermediate.crt'), //must be installed at correct location in server
+  // requestCert: true,
+  // rejectUnauthorized: false
 },app);
 
-server.listen(8080);
+server.listen(3000, () => {
+          console.log(`Server is running on port ${port}`);
+        });
 
 const io = require('socket.io')(server, {
   cors: {
-    origin:'https://ebkeefe5.github.io',
+    origin:'http://127.0.0.1:8080',
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
-    credentials: true
+    credentials: false
   }
 });
 
@@ -71,6 +74,7 @@ io.on('connection', client => {
   }
 
   function handleNewGame() {
+    console.log("new game was created");
     let roomName = makeid(5);
     clientRooms[client.id] = roomName;
     client.emit('gameCode', roomName);
