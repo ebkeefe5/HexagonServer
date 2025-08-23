@@ -1,11 +1,12 @@
 /**
  ** server for two player hexagon game
- ** must be hosted at a server with an ssl certificate installed running over https
- **
+ ** use fs to self install ssl certificate 
+ ** OR
+ ** use a PAAS like heroku
 **/
 
 const http = require('http');
-const fs = require('fs');
+// const fs = require('fs');
 var express = require('express');
 var app = module.exports = express();
 const port = 3000;
@@ -16,11 +17,11 @@ const { player1WinningPath, player2WinningPath } = require("./gameOverUtility");
 const { makeid } = require("./randId");
 
 const server = http.createServer({
-  // key: fs.readFileSync('server.key'), //must be installed at correct location in server
-  // cert: fs.readFileSync('certificate.crt'), //must be installed at correct location in server
-  // ca: fs.readFileSync('intermediate.crt'), //must be installed at correct location in server
+  // key: fs.readFileSync('server.key'), //uncomment these lines if self managing ssl cert on server
+  // cert: fs.readFileSync('certificate.crt'), 
+  // ca: fs.readFileSync('intermediate.crt'), 
   // requestCert: true,
-  // rejectUnauthorized: false
+  // rejectUnauthorized: true
 },app);
 
 server.listen(3000, () => {
