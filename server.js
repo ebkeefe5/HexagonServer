@@ -9,7 +9,7 @@ const http = require('http');
 // const fs = require('fs');
 var express = require('express');
 var app = module.exports = express();
-const port = 3000;
+const port = 3001;
 
 const initBoard = require("./game");
 const{ BOARD_DIMENSION } = require('./constants');
@@ -24,13 +24,13 @@ const server = http.createServer({
   // rejectUnauthorized: true
 },app);
 
-server.listen(3000, () => {
+server.listen(port, () => {
           console.log(`Server is running on port ${port}`);
         });
 
 const io = require('socket.io')(server, {
   cors: {
-    origin:'http://localhost:3001',
+    origin:'http://localhost:3000',
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: false
@@ -45,6 +45,7 @@ const firstTurn ={};
 const clientRooms = {};
 
 io.on('connection', client => {
+  //console.log("connected");
 
   client.on('newGame', handleNewGame);
   client.on('hexagonClicked', handleHexagonClicked);
