@@ -1,10 +1,20 @@
 {
-  "name": "socket-stuff",
+  "name": "hex-socket",
   "version": "0.0.1",
-  "description": "my first socket.io app",
+  "description": "socket.io app for hex server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^3.1.2",
-    "socket.io-client": "^3.1.1"
+    "socket.io-client": "^3.1.1",
+    "socket.io-parser": ">=4.2.3",
+    "xmlhttprequest-ssl": ">=1.6.2",
+    "engine.io": ">=6.2.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

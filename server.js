@@ -9,7 +9,7 @@ const http = require('http');
 // const fs = require('fs');
 var express = require('express');
 var app = module.exports = express();
-const port = 3001;
+const port = process.env.PORT || 3000;
 
 const initBoard = require("./game");
 const{ BOARD_DIMENSION } = require('./constants');
@@ -30,7 +30,7 @@ server.listen(port, () => {
 
 const io = require('socket.io')(server, {
   cors: {
-    origin:'http://localhost:3000',
+    origin: process.env.CORS_ORIGIN || 'http://localhost:3001',
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: false
