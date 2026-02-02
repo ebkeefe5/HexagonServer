@@ -45,6 +45,7 @@ const firstTurn ={};
 const clientRooms = {};
 
 io.on('connection', client => {
+  //console.log("connected");
 
   client.on('newGame', handleNewGame);
   client.on('hexagonClicked', handleHexagonClicked);
